@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>vue-resource</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+   
     <!-- 导入vue包 -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
     <script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
@@ -37,43 +38,67 @@
             </thead>
             <tbody>
                 <tr v-for="item in list" :key="item.id">
-                    <th>@{{item.id}}</th>
-                    <td>@{{item.name}}</td>
-                    <td>@{{item.ctime}}</td>
+                    <th>@{{item.mg_id}}</th>
+                    <td>@{{item.mg_name}}</td>
+                    <td>@{{item.last_login_time}}</td>
                     <td>
-                        <a href="">删除</a>
+                        <a href="" @click.prevent="del(item.mg_id)">删除</a>
                     </td>
                 </tr>  
             </tbody>
         </table>
     </div>
     <script>
+        Vue.http.options.emulateJSON = true;
+        Vue.http.options.root = '/admin/vue/';
+
         var vm = new Vue({
             el:'#app',
             data:{
                 name:'',
-                list:[
-                    {id:1,name:'本田',ctime:new Date()},
-                    {id:2,name:'丰田',ctime:new Date()},
-                ]
+                list:'',
             },
-            created:{
+            // http:{
+            //     root:'/admin/vue/',
+            //     headers: {
+            //       Authorization: 'Basic YXBpOnBhc3N3b3Jk'
+            //     }
+            // },
+            created(){
                 this.getAlllist()
-            }
+                //console.log('ok')
+            },
             methods:{
                 add(){
-                    alert('ok')
+                    this.$http.post('add',{mg_name:this.name}).then(res => {
+                        if(res.body.status == 0){
+                            this.getAlllist()
+                            this.name = ''
+                        }else{
+                            alert('添加失败')
+                        }
+                    })
                 },
                 getAlllist(){
                     //由于已经加载了vue-resource 可以通过this.$http
-                    this.$http.get('http://www.yt.cc/admin/vue/list').then(res => {
-                        
+                    this.$http.get('list').then(res => {
+
                         if(res.body.status == 0){
                             this.list = res.body.data
                         }else{
                             alert('获取失败')
                         }
                     })
+                },
+                del(id){
+                    this.$http.post('del/'+id).then(res=>{
+                        if(res.body.status == 0){
+                            this.getAlllist()
+                        }else{
+                            alert('error')
+                        }
+                    })
+                    //alert(id)
                 }
             }
         })
