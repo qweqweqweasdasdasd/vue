@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{ msg | msgFormat('疯狂++1') | test}}</p>
+    </div>
+
+    <script>
+        //定义一个全局的过滤器
+        Vue.filter('msgFormat',function(msg,arg){
+            //replace 第一个参数可以写正则表达式
+            return msg.replace(/单纯/g,arg)
+        })
+
+        //定义过滤器
+        Vue.filter('test',function(msg){
+            return msg + '============='
+        })
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:"曾经我是一个单纯的人，，我曾傻傻的问谁是世界上的最单纯的人！！"
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

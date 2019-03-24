@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="按钮" @click="set">
+        <h3 id="h3">{{msg}}</h3>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'ok'
+            },
+            methods:{
+                show(){
+                    console.log('00000')
+                },
+                set(){
+                    this.msg = 'no'
+                }
+            },
+            beforeCreate(){ //这个是我们遇到的第一个生命周期的函数
+                //console.log(this.msg)     这个生命周期函数实例化的时候 ，，，data 和 methods 还没有
+                //this.show();
+            },
+            created(){
+                //console.log(this.msg) //这个是遇到的第二个生命函数 
+                //this.show()             //如果要调用data 和函数 需要在这个生命周期函数内
+            },
+            beforeMount(){          //这个是表示vue开始编译模板 并把vue代码指令进行执行最终编译为字符串吧这个模板渲染为dom 在内存内渲染 没有挂载到游览器内
+                
+                //console.log(document.getElementById("h3").innerText) //执行的时候页面元素没有被替换过来
+            },
+            mounted(){
+                //console.log(document.getElementById("h3").innerText)
+                //注意这个是实例创建最后一个生命周期的函数
+            },
+            //运行中的生命周期函数
+            beforeUpdate(){
+                //console.log('界面上元素的内容：'+document.getElementById("h3").innerText)
+                //console.log('data 的数据是：'+this.msg)
+                //执行这个函数的时候，，页面中显示的数据还是旧的，data 为最新的 页面和data 数据没有发生同步
+            },
+            updated(){
+                // console.log('界面上元素的内容：'+document.getElementById("h3").innerText)
+                // console.log('data 的数据是：'+this.msg)
+                //这个函数执行的时候，页面数据和data已经同步了
+            }
+
+        })
+    </script>
+</body>
+</html>

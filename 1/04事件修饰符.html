@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="inner" @click="divHandler">
+            <input type="button" value="按钮" @click.stop="btnHandler">
+        </div>
+        <a href="http://www.baidu.com" @click.prevent="clicklink">内事不决问百度</a>
+        <div class="inner" @click.capture="divHandler">
+            <input type="button" value="按钮" @click="btnHandler">
+        </div> 
+        <div class="inner" @click.self="divHandler">
+            <input type="button" value="按钮" @click="btnHandler">
+        </div>
+
+        <a href="http://www.baidu.com" @click.prevent.once="clicklink">内事不决问百度</a>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{
+                divHandler(){
+                    console.log('这个是div 点击事件')
+                },
+                btnHandler(){
+                    console.log('这个是btn 点击事件')
+                },
+                clicklink(){
+                    console.log('这个是link 点击事件')
+                }
+            }
+        })
+    </script>
+</body>
+</html>

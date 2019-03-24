@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p v-cloak>============{{msg}}=========</p>
+        <h5 v-text="msg">============</h5>
+        <p>{{msg2}}</p>
+        <h5 v-text="msg2"></h5>
+        <h3 v-html="msg2"></h3>
+        <input type="button" value="按钮" :title="mytitle">
+        <input type="button" value="按钮" v-bind:title="mytitle + '123' "> 
+        <!-- v-bind 会把后面的当做变量处理 -->
+        <!-- <input type="button" value="按钮" :title="mytitle" v-on:click="show"> -->
+        <input type="button" value="按钮" :title="mytitle" @click="show">
+    </div>
+    <script>
+        vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'123',
+                msg2:'<h1>这个是有h1标签的<h1>',
+                mytitle:'这是一个自定义title'
+            },
+            methods:{   
+                show:function(){
+                    alert('hello!');
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p v-for="count in 10">这个是第{{count}}次</p>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{
+                
+            }
+        })
+    </script>
+</body>
+</html>
