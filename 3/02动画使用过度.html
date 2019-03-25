@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to{
+            opacity: 0;
+            transform: translateX(100px);
+        }
+
+        .v-enter-active,
+        .v-leave-active{
+            transition: all 0.8s ease;
+        }
+
+        .my-enter,
+        .my-leave-to{
+            opacity: 0;
+            transform: translateY(100px);
+        }
+
+        .my-enter-active,
+        .my-leave-active{
+            transition: all 0.8s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="toggle" @click="toggle">
+        <!-- 需求点击按钮 让 h3显示 不然让他不显示 -->
+        <!-- 使用transition 吧需要动的包裹起来来 -->
+        <transition>
+            <h3 v-if="flag">这个是h3</h3>
+        </transition>
+        <br>
+        <input type="button" value="toggle2" @click="toggle2">
+        <!-- 需求点击按钮 让 h3显示 不然让他不显示 -->
+        <!-- 使用transition 吧需要动的包裹起来来 -->
+        <transition name="my">
+            <h6 v-if="flag2">这个是h6</h6>
+        </transition>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                flag:false,
+                flag2:false
+            },
+            methods:{
+                toggle(){
+                    this.flag = !this.flag
+                },
+
+                toggle2(){
+                    this.flag2 = !this.flag2
+                }
+            }
+        })
+    </script>
+</body>
+</html>

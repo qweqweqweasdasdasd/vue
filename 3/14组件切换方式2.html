@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <a href="" @click.prevent="comname='login'">登录</a>
+        <a href="" @click.prevent="comname='reg'">注册</a>
+
+        <component :is="comname"></component>
+
+        <!-- //vue 提供的标签
+        //component template trasition trasitionGroup -->
+    </div>
+ 
+    <script>
+        Vue.component('login',{
+            template:"<h1>登录组件</h1>"
+        })
+
+        Vue.component('reg',{
+            template:"<h1>注册组件</h1>"
+        })
+
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                comname:'login'
+            },
+            methods:{}
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- //使用组件的方式 -->
+        <my-conl></my-conl>
+    </div>
+    <script>
+
+        //使用vue extend 创建全局组件
+        // var conl = Vue.extend({
+        //     template:"<h3>这个是全局的组件</h3>"
+        // })
+        //使用 vue.component('组件名称',创建出来的模板)；
+        //如果使用vue。component 使用的驼峰命名 如果修改诶组件的话，，，使用-显示
+        //Vue.component('myConl',conl)
+
+        //第二种方式  第一次参数是组件的名称 第二次参数通过 vue.extend 创建的组件
+        Vue.component('myConl',Vue.extend({
+            template:'<h3>组件的第二种方式</h3>'
+        }))
+
+
+
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{}
+        })
+    </script>
+</body>
+</html>

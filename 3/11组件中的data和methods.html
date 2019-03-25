@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <myconl></myconl>
+    </div>
+    <script>
+        //组件可以有data 但是必须为function  内部必须要 return {}
+        //组件中的数据使用的方法和实例上的完全一样
+        //为啥组件的数据必须为函数
+        //
+        Vue.component('myconl',{
+            template:'<h1>这个是组件---- {{msg}}</h1>',
+            data:function(){
+                return {
+                    msg: "组件的数据" 
+                }
+            }
+        })
+
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{}
+        })
+    </script>
+</body>
+</html>

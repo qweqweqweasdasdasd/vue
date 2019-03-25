@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- <mycon2></mycon2>  -->
+        <myconl></myconl> 
+    </div>
+
+    <div id="app2">
+        <login></login>
+    </div>
+
+
+    <template id="tmpl">
+        <div>
+            <h1>这个方式是第三个创建组件的方式</h1>
+            <h4>好用</h4>
+        </div>
+    </template>    
+    <script>
+        //无论是哪种方式创建出来的组件 根元素必须为一个
+        // Vue.component('mycon2',{
+        //     template: '<h3>这个是第二个创建的方式</h3>'
+        // })
+
+        Vue.component("myconl",{
+            template:"#tmpl"
+        })
+    
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{}
+        })
+
+        var vm = new Vue({
+            el:'#app2',
+            data:{},
+            methods:{},
+            filters:{},          //过滤器
+            directives:{},       //自定义指令
+            components:{         //私有组件
+                login:{
+                    template:'<h1>这个是私有组件</h1>'
+                }
+            }
+        })
+    </script>
+</body>
+</html>
