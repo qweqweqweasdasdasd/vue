@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <con2 v-on:func="show"></con2>         
+    </div>
+    <!-- //事件绑定 v-on 简写的方式 @func-->
+    <template id="tmpl">
+        <div>
+            <h2>这个是子组件</h2>
+            <input type="button" value="这个是子组件触发父组件的方法" @click="myclick">
+        </div>
+    </template>
+    <script>
+        var con2 = {
+            template:"#tmpl", //指定了一个id的元素
+            data(){
+                return {
+                    sonmsg :{name:'qqqq',age:'23'}
+                }
+            },
+            methods:{
+                myclick(){
+                    //console.log('ok')点击子组件的按钮的时候如何触发父组件的方法嗯
+                    this.$emit('func',this.sonmsg)    //emit 触发的意思             //子组件向父组件转递参数
+                }
+            }
+        }
+
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'123 父亲组件的内容',
+                ffmsg: null
+            },
+            methods:{
+                show(data){
+                    //console.log('这个是父组件上的方法！'+data)
+                    this.ffmsg = data
+                }
+            },
+            components:{
+                con2
+            }
+        })
+    </script>
+</body>
+</html>

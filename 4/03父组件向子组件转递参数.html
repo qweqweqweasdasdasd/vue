@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 可以在父亲组件引用子组件的时候 通过 v-bind 的 形式 绑定到子组件内 -->
+        <conl v-bind:parentmsg="msg"></conl>    
+    </div>
+    <script>
+
+
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'123 父亲组件的内容'
+            },
+            methods:{},
+            components:{
+                conl:{
+                    data(){     //子组件私有的数据 可读可写
+                        return {
+                            title:'123',
+                            content:"qqqq"
+                        }
+                    },
+                    template:'<h1 @click="change">这个是子组件--{{parentmsg}}</h1>',
+                    props:['parentmsg'],       //只读
+                    //父亲组件向在子组件使用转递的参数在子组件内添加props
+                    methods:{
+                        change(){
+                            //this.parentmsg = '被修改了'     //错误的语法
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

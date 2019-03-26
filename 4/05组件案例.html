@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <!-- 导入vue包 -->
+     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <cmt-box @func="load"></cmt-box>
+        <ul class="list-group">
+            <li class="list-group-item" v-for="item in list" :key="item.id">
+                <span class="badge">评论人：{{item.user}}</span>
+                {{item.content}}
+            </li>
+        </ul>
+    </div>
+
+    <template id="tmpl">
+        <div>
+            <div class="form-group">
+                <label>评论人：</label>
+                <input type="text" class="form-control" v-model="user">
+            </div>
+
+            <div class="form-group">
+                <label>评论内容：</label>
+                <textarea class="form-control" v-model="content"></textarea>
+            </div>
+
+            <div class="form-group">
+                <input type="button" value="发布评论" class="btn btn-success" @click="post">
+            </div>
+        </div>
+    </template>
+
+    <script>
+        var commentBox = {
+            data(){
+                return {
+                    user:'',
+                    content:''
+                }
+            },
+            template:'#tmpl',
+            methods:{
+                post(){
+                    //分析业务逻辑
+                    //评论数据存到哪里 存款到了 本地 locastorage.setItem('','')
+                    //先组织出一个最新的评论数据对象
+                    //想办法 吧第二部中得到的对象 保存到 本地
+                    //本地存储只支持字符串数据 先调用 json.stringify
+                    //在保持最新的评论数据之前 要先从 本地获取到之前的评论数据 转换为一个数组对象 然后报最新的评论数据push到数组内
+                    //如果获取到评论数据为空的话，，，会报错 则直接返回一个[]
+                    //吧最新的评论列表数组 再次调用 抓好为数组字符串 然后调用 
+
+                    var comment = {id:Date.now(),user:this.user,content:this.content}
+                    var list = JSON.parse(localStorage.getItem('cmts') || '[]') 
+                    list.unshift(comment)
+                    localStorage.setItem('cmts',JSON.stringify(list))
+                    this.user = this.content = ''
+
+                    //调用父组件的方法
+                    this.$emit('func')
+                }
+            }
+        }
+        
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                list:[
+                    {id:1, user:'李白', content:'天生我才必有用'},
+                    {id:2, user:'李白白', content:'天生我才必有用'},
+                    {id:3, user:'李小白', content:'天生我才必有用'},
+                    {id:4, user:'李白黑', content:'天生我才必有用'}
+                ]
+            },
+            created(){
+                this.load()
+            },
+            methods:{
+                load(){
+                    var list = JSON.parse(localStorage.getItem('cmts') || '[]') 
+                    this.list = list
+                }
+            },
+            components:{
+                'cmt-box':commentBox
+            }
+        })
+    </script>
+</body>
+</html>
