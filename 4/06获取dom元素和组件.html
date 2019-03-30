@@ -11,7 +11,7 @@
 <body>
     <div id="app">
         <input type="button" value="获取到元素" @click="getEl">
-
+        GetLiuhecaiCookie
         <h3 ref="myh3">哈哈  今天的天气不错哦</h3>
     </div>
     <script>
@@ -26,5 +26,7 @@
             }
         })
     </script>
+    
+    app('log')->info('进入了第四方类:'.$d['username'].'--'.$d['money'].'--'.$d['trade_no']);
 </body>
 </html>

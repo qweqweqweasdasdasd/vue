@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+    <script src="https://cdn.bootcss.com/vue-router/3.0.2/vue-router.js"></script>
+    <style>
+        .router-link-active{
+            color: red;
+            font-weight: 800;
+            font-style: initial;
+            /* font-size: 90px; */
+            background-color: #ccc;
+        }
+
+        .myclass{
+            color: aqua;  
+        }
+        .v-enter,
+        .v-leave-to{
+            opacity: 0;
+            transform: translateX(140px);
+        }
+        .v-enter-active,
+        .v-leave-active{
+            transition: all 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- <a href="#/login">登录</a>
+        <a href="#/register">注册</a> -->
+        <!-- 默认渲染为 a 标签 tag 修改默认的标签-->
+        <router-link to='/login' tag="span">登录</router-link>
+        <router-link to='/register'>注册</router-link>
+        <!-- 这个是vue-router 提供的 可以吧他当做站位符-->
+        <transition mode="out-in"> 
+            <router-view></router-view>     
+        </transition> 
+    </div>
+    <script>
+        var login = {
+            template:'<h1>登录组件</h1>'
+        }
+
+        var register = {
+            template:'<h1>注册组件</h1>'
+        }
+        //1 创建一个路由对象，，当导入 vue-router 之后全局对象中，有一个构造函数
+        //在 new 路由对象的时候 可以为构造函数 转递一个配置对象
+        var router = new VueRouter({
+            //route // 表示路由匹配规则的意思
+            routes:[ //路由匹配规则
+                //component 属性必须是组件对象
+                //{path:'/',component:login},
+                {path:'/',redirect:'/login'},   //路由强制跳转到制定的路由
+                {path:'/login',component:login},     //这个是两个参数，，第一个是路径，，第二是组件
+                {path:'/register',component:register}
+            ],
+            linkActiveClass:'myclass'
+        })
+
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{},
+            router:router   //吧路由注册到VM 实例对象上
+        })
+    </script>
+</body>
+</html>
