@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+    <script src="https://cdn.bootcss.com/vue-router/3.0.2/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <con1 v-bind:parentmsg="msg" @func='getMsgfromson'></con1>
+    </div>
+
+    <template id="tmpl">
+        <div>
+            <h1>这个是子元素----{{parentmsg}}</h1>
+            <input type="button" value="想父组件传递数据" @click="sendMsg">
+        </div>
+    </template>
+    <script>
+        var con1 = {
+            template:'#tmpl',
+            data(){
+                return{
+                    msg:'做一个孝顺的孩子'
+                }
+            },
+            props:['parentmsg'],
+            methods:{
+                sendMsg(){
+                    this.$emit('func',this.msg)
+                }
+            }
+        }
+
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'这是父组件的数据，',
+                msgformson:''
+            },
+            methods:{
+                getMsgfromson(data){
+                    this.msgformson = data
+                    console.log(this.msgformson)
+                }
+            },
+            components:{
+                con1
+            }
+        })
+    </script>
+</body>
+</html>

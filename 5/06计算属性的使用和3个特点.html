@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 导入vue包 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+    <script src="https://cdn.bootcss.com/vue-router/3.0.2/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 分析 监听到文本框的改变 然后拼接数据 -->
+        <input type="text" v-model="firstname">+
+        <input type="text" v-model="lastname">=
+
+        <input type="text" v-model="fullname" >
+        <h1>{{fullname}}</h1>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                firstname:'',
+                lastname:''
+            },
+            methods:{},
+            computed:{      //可以定义一些属性 这些属性 是计算属性
+                'fullname':function(){
+                    return this.firstname + '-' + this.lastname
+                }
+            }
+            //注意计算属性使用的时候 不要加（）当做属性使用就行了，，只要计算属性这个方法只要触动与之关联的数据的时候触发该属性
+            //计算属性的求值结果会被缓存起来，，方便下次调用，，如果依赖的数据都没有发生变化，，不会触动计算属性
+        })
+    </script>
+</body>
+</html>
